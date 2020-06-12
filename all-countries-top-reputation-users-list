@@ -1,0 +1,544 @@
+---------------------- query for DATA.STACKEXCHANGE.COM -----------------------
+-- Top Reputation user from all counties of world
+-------------------------------------------------------------------------------
+-- Note 1: Built based on topic: https://meta.stackexchange.com/q/348060/774116
+-- Note 2: To generate blocks, used: https://github.com/pavletabata/stackexchange-query-for-all-countries/blob/master/helper-php-code-for-countries
+-- Note 3: Code at github : https://github.com/pavletabata/stackexchange-query-for-all-countries
+
+-------------------------------------------------------------------------------
+
+
+
+select id, reputation, location
+into #users
+from users
+where location is not null
+and reputation > 1
+
+;with 
+countries as 
+(
+  select 1 id, 'Afghanistan' name union
+  select 2, 'Albania' union
+  select 3, 'Algeria' union
+  select 4, 'American Samoa' union
+  select 5, 'Andorra' union
+  select 6, 'Angola' union
+  select 7, 'Anguilla' union
+  select 8, 'Antarctica' union
+  select 9, 'Antigua And Barbuda' union
+  select 10, 'Argentina' union
+  select 11, 'Armenia' union
+  select 12, 'Aruba' union
+  select 13, 'Australia' union
+  select 14, 'Austria' union
+  select 15, 'Azerbaijan' union
+  select 16, 'Bahamas' union
+  select 17, 'Bahrain' union
+  select 18, 'Bangladesh' union
+  select 19, 'Barbados' union
+  select 20, 'Belarus' union
+  select 21, 'Belgium' union
+  select 22, 'Belize' union
+  select 23, 'Benin' union
+  select 24, 'Bermuda' union
+  select 25, 'Bhutan' union
+  select 26, 'Bolivia' union
+  select 27, 'Bosnia And Herzegovina' union
+  select 28, 'Botswana' union
+  select 29, 'Bouvet Island' union
+  select 30, 'Brazil' union
+  select 31, 'British Indian Ocean Territory' union
+  select 32, 'Brunei Darussalam' union
+  select 33, 'Bulgaria' union
+  select 34, 'Burkina Faso' union
+  select 35, 'Burundi' union
+  select 36, 'Cambodia' union
+  select 37, 'Cameroon' union
+  select 38, 'Canada' union
+  select 39, 'Cape Verde' union
+  select 40, 'Cayman Islands' union
+  select 41, 'Central African Republic' union
+  select 42, 'Chad' union
+  select 43, 'Chile' union
+  select 44, 'China' union
+  select 45, 'Christmas Island' union
+  select 46, 'Cocos Islands' union
+  select 47, 'Colombia' union
+  select 48, 'Comoros' union
+  select 49, 'Congo' union
+  select 50, 'Cook Islands' union
+  select 51, 'Costa Rica' union
+  select 52, 'Cote D''ivoire' union
+  select 53, 'Croatia' union
+  select 54, 'Cuba' union
+  select 55, 'Cyprus' union
+  select 56, 'Czech Republic' union
+  select 57, 'Denmark' union
+  select 58, 'Djibouti' union
+  select 59, 'Dominica' union
+  select 60, 'Dominican Republic' union
+  select 61, 'East Timor' union
+  select 62, 'Ecuador' union
+  select 63, 'Egypt' union
+  select 64, 'El Salvador' union
+  select 65, 'Equatorial Guinea' union
+  select 66, 'Eritrea' union
+  select 67, 'Estonia' union
+  select 68, 'Ethiopia' union
+  select 69, 'Falkland Islands' union
+  select 70, 'Faroe Islands' union
+  select 71, 'Fiji' union
+  select 72, 'Finland' union
+  select 73, 'France' union
+  select 74, 'French Guiana' union
+  select 75, 'French Polynesia' union
+  select 76, 'French Southern Territories' union
+  select 77, 'Gabon' union
+  select 78, 'Gambia' union
+  select 79, 'Georgia' union
+  select 80, 'Germany' union
+  select 81, 'Ghana' union
+  select 82, 'Gibraltar' union
+  select 83, 'Greece' union
+  select 84, 'Greenland' union
+  select 85, 'Grenada' union
+  select 86, 'Guadeloupe' union
+  select 87, 'Guam' union
+  select 88, 'Guatemala' union
+  select 89, 'Guinea' union
+  select 90, 'Guinea-bissau' union
+  select 91, 'Guyana' union
+  select 92, 'Haiti' union
+  select 93, 'Heard Island And Mcdonald Islands' union
+  select 94, 'Honduras' union
+  select 95, 'Hong Kong' union
+  select 96, 'Hungary' union
+  select 97, 'Iceland' union
+  select 98, 'India' union
+  select 99, 'Indonesia' union
+  select 100, 'Iran' union
+  select 101, 'Iraq' union
+  select 102, 'Ireland' union
+  select 103, 'Israel' union
+  select 104, 'Italy' union
+  select 105, 'Jamaica' union
+  select 106, 'Japan' union
+  select 107, 'Jordan' union
+  select 108, 'Kazakstan' union
+  select 109, 'Kenya' union
+  select 110, 'Kiribati' union
+  select 111, 'Korea' union
+  select 112, 'Kosovo' union
+  select 113, 'Kuwait' union
+  select 114, 'Kyrgyzstan' union
+  select 115, 'Latvia' union
+  select 116, 'Lebanon' union
+  select 117, 'Lesotho' union
+  select 118, 'Liberia' union
+  select 119, 'Libyan Arab Jamahiriya' union
+  select 120, 'Liechtenstein' union
+  select 121, 'Lithuania' union
+  select 122, 'Luxembourg' union
+  select 123, 'Macau' union
+  select 124, 'Macedonia' union
+  select 125, 'Madagascar' union
+  select 126, 'Malawi' union
+  select 127, 'Malaysia' union
+  select 128, 'Maldives' union
+  select 129, 'Mali' union
+  select 130, 'Malta' union
+  select 131, 'Marshall Islands' union
+  select 132, 'Martinique' union
+  select 133, 'Mauritania' union
+  select 134, 'Mauritius' union
+  select 135, 'Mayotte' union
+  select 136, 'Mexico' union
+  select 137, 'Micronesia' union
+  select 138, 'Moldova' union
+  select 139, 'Monaco' union
+  select 140, 'Mongolia' union
+  select 141, 'Montserrat' union
+  select 142, 'Montenegro' union
+  select 143, 'Morocco' union
+  select 144, 'Mozambique' union
+  select 145, 'Myanmar' union
+  select 146, 'Namibia' union
+  select 147, 'Nauru' union
+  select 148, 'Nepal' union
+  select 149, 'Netherlands' union
+  select 150, 'Netherlands Antilles' union
+  select 151, 'New Caledonia' union
+  select 152, 'New Zealand' union
+  select 153, 'Nicaragua' union
+  select 154, 'Niger' union
+  select 155, 'Nigeria' union
+  select 156, 'Niue' union
+  select 157, 'Norfolk Island' union
+  select 158, 'Northern Mariana Islands' union
+  select 159, 'Norway' union
+  select 160, 'Oman' union
+  select 161, 'Pakistan' union
+  select 162, 'Palau' union
+  select 163, 'Palestina' union
+  select 164, 'Panama' union
+  select 165, 'Papua New Guinea' union
+  select 166, 'Paraguay' union
+  select 167, 'Peru' union
+  select 168, 'Philippines' union
+  select 169, 'Pitcairn' union
+  select 170, 'Poland' union
+  select 171, 'Portugal' union
+  select 172, 'Puerto Rico' union
+  select 173, 'Qatar' union
+  select 174, 'Reunion' union
+  select 175, 'Romania' union
+  select 176, 'Russian Federation' union
+  select 177, 'Rwanda' union
+  select 178, 'Saint Helena' union
+  select 179, 'Saint Kitts And Nevis' union
+  select 180, 'Saint Lucia' union
+  select 181, 'Saint Pierre And Miquelon' union
+  select 182, 'Saint Vincent And The Grenadines' union
+  select 183, 'Samoa' union
+  select 184, 'San Marino' union
+  select 185, 'Sao Tome And Principe' union
+  select 186, 'Saudi Arabia' union
+  select 187, 'Senegal' union
+  select 188, 'Serbia' union
+  select 189, 'Seychelles' union
+  select 190, 'Sierra Leone' union
+  select 191, 'Singapore' union
+  select 192, 'Slovakia' union
+  select 193, 'Slovenia' union
+  select 194, 'Solomon Islands' union
+  select 195, 'Somalia' union
+  select 196, 'South Africa' union
+  select 197, 'South Georgia And The South Sandwich Islands' union
+  select 198, 'Spain' union
+  select 199, 'Sri Lanka' union
+  select 200, 'Sudan' union
+  select 201, 'Suriname' union
+  select 202, 'Svalbard And Jan Mayen' union
+  select 203, 'Swaziland' union
+  select 204, 'Sweden' union
+  select 205, 'Switzerland' union
+  select 206, 'Syrian Arab Republic' union
+  select 207, 'Taiwan' union
+  select 208, 'Tajikistan' union
+  select 209, 'Tanzania' union
+  select 210, 'Thailand' union
+  select 211, 'Togo' union
+  select 212, 'Tokelau' union
+  select 213, 'Tonga' union
+  select 214, 'Trinidad And Tobago' union
+  select 215, 'Tunisia' union
+  select 216, 'Turkey' union
+  select 217, 'Turkmenistan' union
+  select 218, 'Turks And Caicos Islands' union
+  select 219, 'Tuvalu' union
+  select 220, 'Uganda' union
+  select 221, 'Ukraine' union
+  select 222, 'United Arab Emirates' union
+  select 223, 'United Kingdom' union
+  select 224, 'United States' union
+  select 225, 'United States Minor Outlying Islands' union
+  select 226, 'Uruguay' union
+  select 227, 'Uzbekistan' union
+  select 228, 'Vanuatu' union
+  select 229, 'Venezuela' union
+  select 230, 'VietNam' union
+  select 231, 'Virgin Islands' union
+  select 232, 'Wallis And Futuna' union
+  select 233, 'Western Sahara' union
+  select 234, 'Yemen' union
+  select 235, 'Zambia' union
+  select 236, 'Zimbabwe'
+), 
+country_writings as 
+(
+  select 1 countryid, 'Afghanistan' altname union
+  select 2, 'Albania' union
+  select 3, 'Algeria' union
+  select 4, 'American Samoa' union
+  select 5, 'Andorra' union
+  select 6, 'Angola' union
+  select 7, 'Anguilla' union
+  select 8, 'Antarctica' union
+  select 9, 'Antigua And Barbuda' union
+  select 10, 'Argentina' union
+  select 11, 'Armenia' union
+  select 12, 'Aruba' union
+  select 13, 'Australia' union
+  select 14, 'Austria' union
+  select 15, 'Azerbaijan' union
+  select 16, 'Bahamas' union
+  select 17, 'Bahrain' union
+  select 18, 'Bangladesh' union
+  select 19, 'Barbados' union
+  select 20, 'Belarus' union
+  select 21, 'Belgium' union
+  select 22, 'Belize' union
+  select 23, 'Benin' union
+  select 24, 'Bermuda' union
+  select 25, 'Bhutan' union
+  select 26, 'Bolivia' union
+  select 27, 'Bosnia And Herzegovina' union
+  select 28, 'Botswana' union
+  select 29, 'Bouvet Island' union
+  select 30, 'Brazil' union
+  select 31, 'British Indian Ocean Territory' union
+  select 32, 'Brunei Darussalam' union
+  select 33, 'Bulgaria' union
+  select 34, 'Burkina Faso' union
+  select 35, 'Burundi' union
+  select 36, 'Cambodia' union
+  select 37, 'Cameroon' union
+  select 38, 'Canada' union
+  select 39, 'Cape Verde' union
+  select 40, 'Cayman Islands' union
+  select 41, 'Central African Republic' union
+  select 42, 'Chad' union
+  select 43, 'Chile' union
+  select 44, 'China' union
+  select 45, 'Christmas Island' union
+  select 46, 'Cocos Islands' union
+  select 47, 'Colombia' union
+  select 48, 'Comoros' union
+  select 49, 'Congo' union
+  select 50, 'Cook Islands' union
+  select 51, 'Costa Rica' union
+  select 52, 'Cote D''ivoire' union
+  select 53, 'Croatia' union
+  select 54, 'Cuba' union
+  select 55, 'Cyprus' union
+  select 56, 'Czech Republic' union
+  select 57, 'Denmark' union
+  select 58, 'Djibouti' union
+  select 59, 'Dominica' union
+  select 60, 'Dominican Republic' union
+  select 61, 'East Timor' union
+  select 62, 'Ecuador' union
+  select 63, 'Egypt' union
+  select 64, 'El Salvador' union
+  select 65, 'Equatorial Guinea' union
+  select 66, 'Eritrea' union
+  select 67, 'Estonia' union
+  select 68, 'Ethiopia' union
+  select 69, 'Falkland Islands' union
+  select 70, 'Faroe Islands' union
+  select 71, 'Fiji' union
+  select 72, 'Finland' union
+  select 73, 'France' union
+  select 74, 'French Guiana' union
+  select 75, 'French Polynesia' union
+  select 76, 'French Southern Territories' union
+  select 77, 'Gabon' union
+  select 78, 'Gambia' union
+  select 79, 'Georgia' union
+  select 80, 'Germany' union
+  select 81, 'Ghana' union
+  select 82, 'Gibraltar' union
+  select 83, 'Greece' union
+  select 84, 'Greenland' union
+  select 85, 'Grenada' union
+  select 86, 'Guadeloupe' union
+  select 87, 'Guam' union
+  select 88, 'Guatemala' union
+  select 89, 'Guinea' union
+  select 90, 'Guinea-bissau' union
+  select 91, 'Guyana' union
+  select 92, 'Haiti' union
+  select 93, 'Heard Island And Mcdonald Islands' union
+  select 94, 'Honduras' union
+  select 95, 'Hong Kong' union
+  select 96, 'Hungary' union
+  select 97, 'Iceland' union
+  select 98, 'India' union
+  select 99, 'Indonesia' union
+  select 100, 'Iran' union
+  select 101, 'Iraq' union
+  select 102, 'Ireland' union
+  select 103, 'Israel' union
+  select 104, 'Italy' union
+  select 105, 'Jamaica' union
+  select 106, 'Japan' union
+  select 107, 'Jordan' union
+  select 108, 'Kazakstan' union
+  select 109, 'Kenya' union
+  select 110, 'Kiribati' union
+  select 111, 'Korea' union
+  select 112, 'Kosovo' union
+  select 113, 'Kuwait' union
+  select 114, 'Kyrgyzstan' union
+  select 115, 'Latvia' union
+  select 116, 'Lebanon' union
+  select 117, 'Lesotho' union
+  select 118, 'Liberia' union
+  select 119, 'Libyan Arab Jamahiriya' union
+  select 120, 'Liechtenstein' union
+  select 121, 'Lithuania' union
+  select 122, 'Luxembourg' union
+  select 123, 'Macau' union
+  select 124, 'Macedonia' union
+  select 125, 'Madagascar' union
+  select 126, 'Malawi' union
+  select 127, 'Malaysia' union
+  select 128, 'Maldives' union
+  select 129, 'Mali' union
+  select 130, 'Malta' union
+  select 131, 'Marshall Islands' union
+  select 132, 'Martinique' union
+  select 133, 'Mauritania' union
+  select 134, 'Mauritius' union
+  select 135, 'Mayotte' union
+  select 136, 'Mexico' union
+  select 137, 'Micronesia' union
+  select 138, 'Moldova' union
+  select 139, 'Monaco' union
+  select 140, 'Mongolia' union
+  select 141, 'Montserrat' union
+  select 142, 'Montenegro' union
+  select 143, 'Morocco' union
+  select 144, 'Mozambique' union
+  select 145, 'Myanmar' union
+  select 146, 'Namibia' union
+  select 147, 'Nauru' union
+  select 148, 'Nepal' union
+  select 149, 'Netherlands' union
+  select 150, 'Netherlands Antilles' union
+  select 151, 'New Caledonia' union
+  select 152, 'New Zealand' union
+  select 153, 'Nicaragua' union
+  select 154, 'Niger' union
+  select 155, 'Nigeria' union
+  select 156, 'Niue' union
+  select 157, 'Norfolk Island' union
+  select 158, 'Northern Mariana Islands' union
+  select 159, 'Norway' union
+  select 160, 'Oman' union
+  select 161, 'Pakistan' union
+  select 162, 'Palau' union
+  select 163, 'Palestina' union
+  select 164, 'Panama' union
+  select 165, 'Papua New Guinea' union
+  select 166, 'Paraguay' union
+  select 167, 'Peru' union
+  select 168, 'Philippines' union
+  select 169, 'Pitcairn' union
+  select 170, 'Poland' union
+  select 171, 'Portugal' union
+  select 172, 'Puerto Rico' union
+  select 173, 'Qatar' union
+  select 174, 'Reunion' union
+  select 175, 'Romania' union
+  select 176, 'Russian Federation' union
+  select 177, 'Rwanda' union
+  select 178, 'Saint Helena' union
+  select 179, 'Saint Kitts And Nevis' union
+  select 180, 'Saint Lucia' union
+  select 181, 'Saint Pierre And Miquelon' union
+  select 182, 'Saint Vincent And The Grenadines' union
+  select 183, 'Samoa' union
+  select 184, 'San Marino' union
+  select 185, 'Sao Tome And Principe' union
+  select 186, 'Saudi Arabia' union
+  select 187, 'Senegal' union
+  select 188, 'Serbia' union
+  select 189, 'Seychelles' union
+  select 190, 'Sierra Leone' union
+  select 191, 'Singapore' union
+  select 192, 'Slovakia' union
+  select 193, 'Slovenia' union
+  select 194, 'Solomon Islands' union
+  select 195, 'Somalia' union
+  select 196, 'South Africa' union
+  select 197, 'South Georgia And The South Sandwich Islands' union
+  select 198, 'Spain' union
+  select 199, 'Sri Lanka' union
+  select 200, 'Sudan' union
+  select 201, 'Suriname' union
+  select 202, 'Svalbard And Jan Mayen' union
+  select 203, 'Swaziland' union
+  select 204, 'Sweden' union
+  select 205, 'Switzerland' union
+  select 206, 'Syrian Arab Republic' union
+  select 207, 'Taiwan' union
+  select 208, 'Tajikistan' union
+  select 209, 'Tanzania' union
+  select 210, 'Thailand' union
+  select 211, 'Togo' union
+  select 212, 'Tokelau' union
+  select 213, 'Tonga' union
+  select 214, 'Trinidad And Tobago' union
+  select 215, 'Tunisia' union
+  select 216, 'Turkey' union
+  select 217, 'Turkmenistan' union
+  select 218, 'Turks And Caicos Islands' union
+  select 219, 'Tuvalu' union
+  select 220, 'Uganda' union
+  select 221, 'Ukraine' union
+  select 222, 'United Arab Emirates' union
+  select 223, 'United Kingdom' union
+  select 224, 'United States' union
+  select 225, 'United States Minor Outlying Islands' union
+  select 226, 'Uruguay' union
+  select 227, 'Uzbekistan' union
+  select 228, 'Vanuatu' union
+  select 229, 'Venezuela' union
+  select 230, 'VietNam' union
+  select 231, 'Virgin Islands' union
+  select 232, 'Wallis And Futuna' union
+  select 233, 'Western Sahara' union
+  select 234, 'Yemen' union
+  select 235, 'Zambia' union
+  select 236, 'Zimbabwe'
+), 
+exclude_writings as 
+(
+  select 23 countryid, 'Bening' altname union
+  select 54, 'Cubal' union
+  select 54, 'Cubase' union
+  select 79, 'united states' union
+  select 79, 'USA' union
+  select 79, 'U.S.' union
+  select 79, 'US' union
+  select 79, ' GA' union
+  select 79, 'atlanta' union
+  select 79, 'german' union
+  select 83, 'Greecela' union
+  select 83, 'Greecemania' union
+  select 192, 'TN,' union
+  select 192, 'USA'
+),
+users_and_country as
+(
+  select distinct 
+         cw.countryid
+       , u.id
+       , u.reputation
+  from #users u
+  inner join country_writings cw 
+     on (   u.location = cw.altname COLLATE Latin1_General_CI_AI
+         or u.location like concat('%', cw.altname, '%') COLLATE Latin1_General_CI_AI
+        )
+  where not exists (
+    select *
+    from exclude_writings ew
+    where ew.countryid = cw.countryid
+    and u.location like concat('%', ew.altname, '%') COLLATE Latin1_General_CI_AI
+  ) 
+)
+
+select c.name, data.id as [User Link], reputation
+from countries c
+inner join
+(
+select rank() over(partition by countryid order by reputation desc) [pos]
+     , *
+from users_and_country 
+) data on c.id = countryid 
+      and pos = 1 -- only the top user for a country
+
+ORDER BY
+    Reputation DESC
