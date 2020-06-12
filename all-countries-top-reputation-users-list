@@ -1,7 +1,7 @@
 ---------------------- query for DATA.STACKEXCHANGE.COM -----------------------
 -- Top Reputation user from all counties of world
 -------------------------------------------------------------------------------
--- Note 1: Built based on topic: https://meta.stackexchange.com/q/348060/774116
+-- Note 1: Built based on topic: https://meta.stackexchange.com/questions/348060/
 -- Note 2: To generate blocks, used: https://github.com/pavletabata/stackexchange-query-for-all-countries/blob/master/helper-php-code-for-countries
 -- Note 3: Code at github : https://github.com/pavletabata/stackexchange-query-for-all-countries
 
